@@ -1,0 +1,24 @@
+Format of CSV data file:
+columns = ['ID', 'Reason for Absence', Date', 'Transportation Expense', 'Distance to Work', 			'Age', 'Daily Work Load Average','Body Mass Index', 'Education', 'Children',
+			'Pets', 'Absenteeism Time in Hours']
+
+-------------------------------------------------------------------------------------------
+
+Files for training of the data:
+
+1- project_preprocessing.py :
+Preprocessing the data in above format, creating dummy variables for 'Reason for Absence'
+and 'Education', extracting month and day of the week from 'Date' column. Output the preprocessed data in CSV format.
+
+2- project_ml.py :
+Scaling the data (output of project_preprocessing.py) except for dummy variable columns, shuffling and splitting the data into train and test parts with 80%-20% ratio, creating and training a Logistic Regression model with train data, (deleting the useless features after training once), testing the model on test data, creating a table including all features and their corresponding weights and the intercept of the model, saving the model and the scaler into files
+
+-------------------------------------------------------------------------------------------
+
+Files for creating a module to re-use the model on data with no output:
+
+1- absenteeism.py :
+Recreating the above preprocess for new data, loading the scaler and model obtained from 'project_ml.py', scaling the data using the same scaler as the one for old data, using the model on the data to predict the targets: excessive absenteeism of an employee.
+
+2- test.py :
+using the 'absenteeism' module mentioned above to get the targets of new data

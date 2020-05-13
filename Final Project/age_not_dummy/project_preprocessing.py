@@ -9,9 +9,11 @@ data = raw_data.copy()
 
 reasons_dummies = pd.get_dummies(data['Reason for Absence'])
 check_reasons_dummies = reasons_dummies.sum(axis=1)
-#print(check_reasons_dummies.sum())
-#print(check_reasons_dummies.unique())
+# checking if every row has one and exactly one reason for absence to group them later
+# print(check_reasons_dummies.sum())
+# print(check_reasons_dummies.unique())
 
+# Creating grouped dummy variables for 'Reason for Absence'
 reasons_dummies = pd.get_dummies(data['Reason for Absence'], drop_first = True)
 
 reason1 = reasons_dummies.loc[:,'1':'14'].max(axis=1)
@@ -29,7 +31,7 @@ data_concat_with_dummies.columns = ['Date', 'Transportation Expense',
 					'Education', 'Children', 'Pets', 'Absenteeism Time in Hours',
 					'reason_1', 'reason_2', 'reason_3', 'reason_4']
 
-# reordering the data
+# reordering the data to put the target at the end
 columns_reordered = ['reason_1', 'reason_2', 'reason_3', 'reason_4',
 					'Date', 'Transportation Expense', 'Distance to Work', 'Age',
 					'Daily Work Load Average','Body Mass Index',
@@ -45,14 +47,13 @@ data_checkpointed = data_reordered.copy()
 data_checkpointed['Date'] = pd.to_datetime(data_checkpointed['Date'], format='%d/%m/%Y')
 #print(data_checkpointed.info())
 
-# Extracting day and month
+# Extracting day of the week and month
 months = []
 
 for i in range(0, len(data_checkpointed)):
 	#weekdays.append(data_checkpointed['Date'][i].weekday())
 	months.append(data_checkpointed['Date'][i].month)
 
-## Alternatively
 def date_to_weekday (date):
 	return date.weekday()
 
